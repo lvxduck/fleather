@@ -1,3 +1,4 @@
+import 'package:fleather/fleather.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -11,6 +12,7 @@ import 'editor.dart';
 import 'embed_proxy.dart';
 import 'keyboard_listener.dart';
 import 'link.dart';
+import 'link_action_overlay.dart';
 import 'rich_text_proxy.dart';
 import 'theme.dart';
 
@@ -172,12 +174,70 @@ class _TextLineState extends State<TextLine> {
     final text = segment as TextNode;
     final attrs = text.style;
     final isLink = attrs.contains(ParchmentAttribute.link);
+    if (isLink) {
+      return TextSpan(
+        text: text.value,
+        style: _getInlineTextStyle(attrs, widget.node.style, theme),
+        recognizer: _getLinkRecognizer(segment, theme),
+        mouseCursor: isLink && canLaunchLinks ? SystemMouseCursors.click : null,
+      );
+    }
     return TextSpan(
       text: text.value,
       style: _getInlineTextStyle(attrs, widget.node.style, theme),
       recognizer: isLink && canLaunchLinks ? _getRecognizer(segment) : null,
       mouseCursor: isLink && canLaunchLinks ? SystemMouseCursors.click : null,
     );
+  }
+
+  /// return a custom recognizer to show actions when user tap on the Link
+  GestureRecognizer _getLinkRecognizer(Node segment, FleatherThemeData theme) {
+    final renderEditor =
+        FleatherEditor.editorKeyOf(context)!.currentState!.renderEditor;
+    return TapGestureRecognizer()
+      ..onTapUp = (delta) {
+        OverlayEntry? overlayEntry;
+        overlayEntry = OverlayEntry(
+          builder: (context) => LinkActionOverlay(
+            segment: segment,
+            editor: renderEditor,
+            theme: theme,
+            readOnly: widget.readOnly,
+            onClosed: () {
+              overlayEntry?.remove();
+            },
+            onLinkChanged: (text, link) {
+              final document = widget.controller.document;
+              final index = segment.documentOffset;
+              final length = segment.length;
+
+              // Create a new Delta with your changes
+              Delta delta = Delta()
+                ..retain(index) // keep everything before
+                ..delete(length)
+                ..insert(text, {
+                  ParchmentAttribute.link.key: link,
+                }) // insert with attributes
+                ..retain(
+                    document.length - index - length); // keep everything after
+              // Apply the changes
+              widget.controller.compose(delta);
+            },
+            onLinkRemoved: () {
+              final range = _getLinkRange(segment);
+              widget.controller.formatText(
+                range.start,
+                range.end - range.start,
+                ParchmentAttribute.link.unset,
+              );
+            },
+            onLaunchUrl: (link) {
+              widget.onLaunchUrl?.call(link);
+            },
+          ),
+        );
+        Overlay.of(context, rootOverlay: true).insert(overlayEntry);
+      };
   }
 
   GestureRecognizer _getRecognizer(Node segment) {

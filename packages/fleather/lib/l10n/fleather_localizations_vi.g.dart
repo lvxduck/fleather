@@ -2,9 +2,9 @@ import 'fleather_localizations.g.dart';
 
 // ignore_for_file: type=lint
 
-/// The translations for English (`en`).
-class FleatherLocalizationsEn extends FleatherLocalizations {
-  FleatherLocalizationsEn([String locale = 'en']) : super(locale);
+/// The translations for Vietnamese (`vi`).
+class FleatherLocalizationsVi extends FleatherLocalizations {
+  FleatherLocalizationsVi([String locale = 'vi']) : super(locale);
 
   @override
   String get foregroundColorAutomatic => 'Automatic';
@@ -43,23 +43,23 @@ class FleatherLocalizationsEn extends FleatherLocalizations {
   String get linkDialogOpen => 'Open';
 
   @override
-  String get linkDialogCopy => 'Copy';
+  String get linkDialogCopy => 'Sao chép';
 
   @override
-  String get linkDialogRemove => 'Remove';
+  String get linkDialogRemove => 'Xoá';
 
   @override
-  String get edit => 'Edit';
+  String get edit => 'Chỉnh sửa';
 
   @override
-  String get cancel => 'Cancel';
+  String get cancel => 'Hủy';
 
   @override
-  String get confirm => 'Confirm';
+  String get confirm => 'Xác nhận';
 
   @override
-  String get text => 'Text';
+  String get text => 'Chữ';
 
   @override
-  String get editLink => 'Edit link';
+  String get editLink => 'Chỉnh sửa liên kết';
 }

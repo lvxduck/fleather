@@ -288,6 +288,9 @@ class FleatherEditor extends StatefulWidget {
 
   final TextSelectionControls? textSelectionControls;
 
+  static GlobalKey<EditorState>? editorKeyOf(BuildContext context) =>
+      context.findAncestorStateOfType<_FleatherEditorState>()?.editableTextKey;
+
   const FleatherEditor(
       {super.key,
       required this.controller,

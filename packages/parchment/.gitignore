@@ -10,3 +10,6 @@ coverage/
 build/
 doc/api/
 test/.test_coverage.dart
+
+# FVM Version Cache
+.fvm/

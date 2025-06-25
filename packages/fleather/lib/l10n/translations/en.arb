@@ -55,5 +55,25 @@
   "linkDialogRemove": "Remove",
   "@linkDialogRemove": {
     "description": "Remove the link"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit the link"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm button"
+  },
+  "text": "Text",
+  "@text": {
+    "description": "Text"
+  },
+  "editLink": "Edit link",
+  "@editLink": {
+    "description": "For edit link dialog title"
   }
 }

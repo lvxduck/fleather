@@ -8,6 +8,9 @@ import 'package:intl/intl.dart' as intl;
 import 'fleather_localizations_en.g.dart';
 import 'fleather_localizations_fa.g.dart';
 import 'fleather_localizations_fr.g.dart';
+import 'fleather_localizations_vi.g.dart';
+
+// ignore_for_file: type=lint
 
 /// Callers can lookup localized strings with an instance of FleatherLocalizations
 /// returned by `FleatherLocalizations.of(context)`.
@@ -96,7 +99,8 @@ abstract class FleatherLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('fa'),
-    Locale('fr')
+    Locale('fr'),
+    Locale('vi')
   ];
 
   /// Automatically assign a foreground color to the text
@@ -182,6 +186,36 @@ abstract class FleatherLocalizations {
   /// In en, this message translates to:
   /// **'Remove'**
   String get linkDialogRemove;
+
+  /// Edit the link
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// Cancel button
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Confirm button
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// Text
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get text;
+
+  /// For edit link dialog title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit link'**
+  String get editLink;
 }
 
 class _FleatherLocalizationsDelegate
@@ -196,7 +230,7 @@ class _FleatherLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'fa', 'fr'].contains(locale.languageCode);
+      <String>['en', 'fa', 'fr', 'vi'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_FleatherLocalizationsDelegate old) => false;
@@ -211,6 +245,8 @@ FleatherLocalizations lookupFleatherLocalizations(Locale locale) {
       return FleatherLocalizationsFa();
     case 'fr':
       return FleatherLocalizationsFr();
+    case 'vi':
+      return FleatherLocalizationsVi();
   }
 
   throw FlutterError(

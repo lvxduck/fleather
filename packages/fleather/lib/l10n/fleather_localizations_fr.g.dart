@@ -1,5 +1,7 @@
 import 'fleather_localizations.g.dart';
 
+// ignore_for_file: type=lint
+
 /// The translations for French (`fr`).
 class FleatherLocalizationsFr extends FleatherLocalizations {
   FleatherLocalizationsFr([String locale = 'fr']) : super(locale);
@@ -45,4 +47,19 @@ class FleatherLocalizationsFr extends FleatherLocalizations {
 
   @override
   String get linkDialogRemove => 'Retirer';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get text => 'Text';
+
+  @override
+  String get editLink => 'Edit link';
 }
